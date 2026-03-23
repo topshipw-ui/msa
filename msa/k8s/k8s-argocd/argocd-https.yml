@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: argo-j1n00-click-tls
+  namespace: argocd
+spec:
+  secretName: argo-j1n00-click-tls
+  duration: 2160h #90day
+  renewBefore: 360h #before 15day
+  issuerRef:
+    name: my-issuer
+    kind: ClusterIssuer
+  commonName: argo.j1n00.click
+  dnsNames:
+    - argo.j1n00.click

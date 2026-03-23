@@ -1,0 +1,37 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: monitoring-ingress
+  namespace: monitoring
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: my-issuer
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - prometheus.j1n00.click
+        - grafana.j1n00.click
+      secretName: monitoring-j1n00-click-tls
+  rules:
+    - host: prometheus.j1n00.click
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: prometheus-service
+                port:
+                  number: 9090
+
+    - host: grafana.j1n00.click
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: grafana
+                port:
+                  number: 3000

@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: monitoring-j1n00-click-tls
+  namespace: monitoring
+spec:
+  secretName: monitoring-j1n00-click-tls
+  duration: 2160h # 90d
+  renewBefore: 360h # 15d
+  issuerRef:
+    name: my-issuer
+    kind: ClusterIssuer
+  dnsNames:
+    - prometheus.j1n00.click
+    - grafana.j1n00.click
